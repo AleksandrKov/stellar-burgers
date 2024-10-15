@@ -1,23 +1,35 @@
-import { FC, useMemo } from 'react';
+import { FC, useMemo, useEffect, useState } from 'react';
 import { Preloader } from '../ui/preloader';
 import { OrderInfoUI } from '../ui/order-info';
 import { TIngredient } from '@utils-types';
+import { useParams } from 'react-router-dom';
+import { useSelector } from '../../services/store';
+import { selectIngredients } from '../../services/selectors/stellarBurgerDataSelector';
+import { getOrderByNumberApi } from '@api';
 
 export const OrderInfo: FC = () => {
-  /** TODO: взять переменные orderData и ingredients из стора */
-  const orderData = {
+  const number = Number(useParams().number);
+  const ingredientSelecot = useSelector(selectIngredients);
+  const [orderData, setOrderData] = useState({
     createdAt: '',
-    ingredients: [],
+    ingredients: [''],
     _id: '',
     status: '',
     name: '',
     updatedAt: 'string',
     number: 0
-  };
+  });
 
-  const ingredients: TIngredient[] = [];
+  const ingredients: TIngredient[] = [
+    ...ingredientSelecot.bun,
+    ...ingredientSelecot.main,
+    ...ingredientSelecot.sauce
+  ];
 
-  /* Готовим данные для отображения */
+  useEffect(() => {
+    getOrderByNumberApi(number).then((data) => setOrderData(data.orders[0]));
+  }, []);
+
   const orderInfo = useMemo(() => {
     if (!orderData || !ingredients.length) return null;
 
