@@ -11,20 +11,22 @@ import {
   selectRequest
 } from '../../services/selectors/orderSelector';
 import { selectUser } from '../../services/selectors/authUserSelector';
+import { useEffect } from 'react';
 
 export const BurgerConstructor: FC = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const constructorItems = useSelector(constructorStateSelector);
-  const request = useSelector(selectRequest);
-  const order = useSelector(selectOrders);
   const user = useSelector(selectUser);
-  const orderRequest = request;
-  const orderModalData = order;
+  const orderRequest = useSelector(selectRequest);
+  const orderModalData = useSelector(selectOrders);
 
   const onOrderClick = () => {
     if (!constructorItems.bun || orderRequest) return;
-    if (!user) navigate('/login');
+    if (!user) {
+      navigate('/login');
+      return;
+    }
     dispatch(
       makeAnOrder([
         constructorItems.bun._id,
@@ -38,6 +40,11 @@ export const BurgerConstructor: FC = () => {
     dispatch(clearConstructorState());
     dispatch(clearOrderState());
   };
+  useEffect(() => {
+    if (orderModalData && !orderRequest) {
+      dispatch(clearConstructorState());
+    }
+  }, [orderModalData, orderRequest, dispatch]);
 
   const price = useMemo(
     () =>
