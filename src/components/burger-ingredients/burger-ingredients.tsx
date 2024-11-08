@@ -3,7 +3,7 @@ import { useInView } from 'react-intersection-observer';
 
 import { TTabMode } from '@utils-types';
 import { BurgerIngredientsUI } from '../ui/burger-ingredients';
-import { useSelector } from '../../services/store';
+import { useAppSelector } from '../../services/store';
 import {
   selectIngredients,
   selectSuccess
@@ -15,8 +15,8 @@ export const BurgerIngredients: FC = () => {
   const titleBunRef = useRef<HTMLHeadingElement>(null);
   const titleMainRef = useRef<HTMLHeadingElement>(null);
   const titleSaucesRef = useRef<HTMLHeadingElement>(null);
-  const ingredients = useSelector(selectIngredients);
-  const success = useSelector(selectSuccess);
+  const ingredients = useAppSelector(selectIngredients);
+  const success = useAppSelector(selectSuccess);
 
   const buns = ingredients.bun;
   const mains = ingredients.main;

@@ -7,13 +7,13 @@ import {
   selectOrders,
   selectIsLoading
 } from '../../services/selectors/stellarBurgerDataSelector';
-import { useDispatch, useSelector } from '../../services/store';
+import { useAppDispatch, useAppSelector } from '../../services/store';
 
 export const Feed: FC = () => {
-  const orderSelector = useSelector(selectOrders);
+  const orderSelector = useAppSelector(selectOrders);
   const orders: TOrder[] = orderSelector.orders;
-  const isLoading = useSelector(selectIsLoading);
-  const dispatch = useDispatch();
+  const isLoading = useAppSelector(selectIsLoading);
+  const dispatch = useAppDispatch();
 
   useEffect(() => {
     dispatch(getOrders());

@@ -2,14 +2,14 @@ import { forwardRef, useMemo } from 'react';
 import { TIngredientsCategoryProps } from './type';
 import { TIngredient } from '@utils-types';
 import { IngredientsCategoryUI } from '../ui/ingredients-category';
-import { useSelector } from '../../services/store';
+import { useAppSelector } from '../../services/store';
 import { constructorStateSelector } from '../../services/selectors/burgerConstructorSelector';
 
 export const IngredientsCategory = forwardRef<
   HTMLUListElement,
   TIngredientsCategoryProps
 >(({ title, titleRef, ingredients }, ref) => {
-  const selectConstructorState = useSelector(constructorStateSelector);
+  const selectConstructorState = useAppSelector(constructorStateSelector);
   const burgerConstructor = {
     bun: selectConstructorState.bun,
     ingredients: selectConstructorState.ingredients

@@ -1,9 +1,9 @@
 import React from 'react';
-import { useSelector } from '../../services/store';
+import { useAppSelector } from '../../services/store';
 import {
-  selectIsRequest,
+  selectIsAuthChecked,
   selectUser
-} from '../../services/selectors/authUserSelector';
+} from '../../services/slices/authUserSlice';
 import { Navigate, useLocation } from 'react-router-dom';
 import { Preloader } from '../ui/preloader';
 
@@ -13,11 +13,11 @@ export interface ProtectedRouteProps {
 }
 
 export function ProtectedRoute({ children, onlyUnAuth }: ProtectedRouteProps) {
-  const isRequest = useSelector(selectIsRequest);
+  const isAuthChecked = useAppSelector(selectIsAuthChecked);
   const location = useLocation();
-  const user = useSelector(selectUser);
+  const user = useAppSelector(selectUser);
 
-  if (isRequest) {
+  if (!isAuthChecked) {
     return <Preloader />;
   }
 

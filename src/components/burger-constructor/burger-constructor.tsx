@@ -1,7 +1,7 @@
 import { FC, useMemo } from 'react';
 import { TConstructorIngredient } from '@utils-types';
 import { BurgerConstructorUI } from '@ui';
-import { useDispatch, useSelector } from '../../services/store';
+import { useAppDispatch, useAppSelector } from '../../services/store';
 import { clearConstructorState } from '../../services/slices/burgerConstructorSlice';
 import { constructorStateSelector } from '../../services/selectors/burgerConstructorSelector';
 import { useNavigate } from 'react-router-dom';
@@ -10,16 +10,16 @@ import {
   selectOrders,
   selectRequest
 } from '../../services/selectors/orderSelector';
-import { selectUser } from '../../services/selectors/authUserSelector';
+import { selectUser } from '../../services/slices/authUserSlice';
 import { useEffect } from 'react';
 
 export const BurgerConstructor: FC = () => {
   const navigate = useNavigate();
-  const dispatch = useDispatch();
-  const constructorItems = useSelector(constructorStateSelector);
-  const user = useSelector(selectUser);
-  const orderRequest = useSelector(selectRequest);
-  const orderModalData = useSelector(selectOrders);
+  const dispatch = useAppDispatch();
+  const constructorItems = useAppSelector(constructorStateSelector);
+  const user = useAppSelector(selectUser);
+  const orderRequest = useAppSelector(selectRequest);
+  const orderModalData = useAppSelector(selectOrders);
 
   const onOrderClick = () => {
     if (!constructorItems.bun || orderRequest) return;

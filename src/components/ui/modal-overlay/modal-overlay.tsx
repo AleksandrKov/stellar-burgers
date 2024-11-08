@@ -5,4 +5,11 @@ export const ModalOverlayUI = ({
   ...rest
 }: {
   onClick: () => void;
-}) => <div className={styles.overlay} onClick={onClick} {...rest} />;
+}) => (
+  <div
+    className={styles.overlay}
+    onClick={onClick}
+    {...rest}
+    data-cy='modal-overlay'
+  />
+);
