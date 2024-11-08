@@ -2,13 +2,13 @@ import { FC } from 'react';
 import { Preloader } from '../ui/preloader';
 import { IngredientDetailsUI } from '../ui/ingredient-details';
 import { useParams } from 'react-router-dom';
-import { useSelector } from '../../services/store';
+import { useAppSelector } from '../../services/store';
 import { TDataState } from '../../services/slices/stellarBurgerDataSlice';
 import { selectIngredients } from '../../services/selectors/stellarBurgerDataSelector';
 
 export const IngredientDetails: FC = () => {
   const { id } = useParams<{ id: string }>();
-  const ingredients = useSelector(selectIngredients);
+  const ingredients = useAppSelector(selectIngredients);
   const ingredientData = findIngredientById(id!, ingredients);
 
   function findIngredientById(

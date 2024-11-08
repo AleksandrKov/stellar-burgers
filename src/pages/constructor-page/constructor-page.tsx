@@ -1,4 +1,4 @@
-import { useSelector } from '../../services/store';
+import { useAppSelector } from '../../services/store';
 
 import styles from './constructor-page.module.css';
 
@@ -9,7 +9,7 @@ import { FC } from 'react';
 import { selectIsLoading } from '../../services/selectors/stellarBurgerDataSelector';
 
 export const ConstructorPage: FC = () => {
-  const isLodaing = useSelector(selectIsLoading);
+  const isLodaing = useAppSelector(selectIsLoading);
 
   return (
     <>

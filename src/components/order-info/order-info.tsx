@@ -3,13 +3,13 @@ import { Preloader } from '../ui/preloader';
 import { OrderInfoUI } from '../ui/order-info';
 import { TIngredient } from '@utils-types';
 import { useParams } from 'react-router-dom';
-import { useSelector } from '../../services/store';
+import { useAppSelector } from '../../services/store';
 import { selectIngredients } from '../../services/selectors/stellarBurgerDataSelector';
 import { getOrderByNumberApi } from '@api';
 
 export const OrderInfo: FC = () => {
   const number = Number(useParams().number);
-  const ingredientSelecot = useSelector(selectIngredients);
+  const ingredientSelecot = useAppSelector(selectIngredients);
   const [orderData, setOrderData] = useState({
     createdAt: '',
     ingredients: [''],
